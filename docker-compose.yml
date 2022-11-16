@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./wordpress:/var/www/html:delegated
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.6.11
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: secret
+      MARIADB_ROOT_PASSWORD: secret
+  wordpress:
+    container_name: wordpress
+    build:
+      context: .
+      dockerfile: wordpress.dockerfile
+    volumes:
+      - ./wordpress:/var/www/html:delegated
+  
