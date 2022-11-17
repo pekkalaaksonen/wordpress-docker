@@ -24,4 +24,9 @@ services:
       dockerfile: wordpress.dockerfile
     volumes:
       - ./wordpress:/var/www/html:delegated
+    environment:  
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: secret
+      WORDPRESS_DB_NAME: wordpress
   
